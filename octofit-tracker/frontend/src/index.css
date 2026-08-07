@@ -1,0 +1,64 @@
+:root {
+  --sand: #f7f2eb;
+  --paper: rgba(255, 250, 245, 0.82);
+  --ink-strong: #161d21;
+  --ink-muted: #53636c;
+  --accent: #e95c42;
+  --accent-deep: #8f2d1d;
+  --surface-line: rgba(22, 29, 33, 0.08);
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --sans: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  --heading: 'Space Grotesk', 'Segoe UI', sans-serif;
+
+  font: 18px/1.6 var(--sans);
+  letter-spacing: 0.01em;
+  color: var(--ink-muted);
+  background:
+    radial-gradient(circle at top left, rgba(233, 92, 66, 0.12), transparent 32%),
+    radial-gradient(circle at right 20%, rgba(22, 29, 33, 0.08), transparent 22%),
+    linear-gradient(180deg, #f7f2eb 0%, #f3ebe2 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  color: var(--ink-strong);
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4.75rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin: 0 0 0.75rem;
+}
+
+p {
+  margin: 0;
+}
+
+code {
+  font-family: var(--mono);
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.35rem;
+  color: var(--accent-deep);
+  background: rgba(233, 92, 66, 0.08);
+}
