@@ -1,0 +1,7 @@
+.navbar .nav-link.active {
+  font-weight: 600;
+}
+
+.table-responsive {
+  border-radius: 0.75rem;
+}
