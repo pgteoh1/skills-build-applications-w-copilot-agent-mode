@@ -1,4 +1,4 @@
-import { NavLink, Route, Routes } from 'react-router-dom'
+import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 import logo from '../../../docs/octofitapp-small.png'
 import './App.css'
 import Activities from './components/Activities.jsx'
@@ -42,7 +42,7 @@ function App() {
             <div className="card border-0 shadow-sm">
               <div className="card-body p-4 p-md-5">
                 <Routes>
-                  <Route path="/" element={<Activities />} />
+                  <Route path="/" element={<Navigate to="/activities" replace />} />
                   <Route path="/activities" element={<Activities />} />
                   <Route path="/leaderboard" element={<Leaderboard />} />
                   <Route path="/teams" element={<Teams />} />

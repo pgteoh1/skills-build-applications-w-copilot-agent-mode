@@ -15,6 +15,6 @@ When `VITE_CODESPACE_NAME` is unset, the app safely falls back to relative `/api
 ## Commands
 
 ```bash
-npm install --prefix /home/runner/work/skills-build-applications-w-copilot-agent-mode/skills-build-applications-w-copilot-agent-mode/octofit-tracker/frontend
-npm run dev --prefix /home/runner/work/skills-build-applications-w-copilot-agent-mode/skills-build-applications-w-copilot-agent-mode/octofit-tracker/frontend
+npm install --prefix octofit-tracker/frontend
+npm run dev --prefix octofit-tracker/frontend
 ```

@@ -90,7 +90,7 @@ function ResourceView({ title, description, endpoint }) {
           <h1 className="h3 mb-2">{title}</h1>
           <p className="text-body-secondary mb-0">{description}</p>
         </div>
-        <span className="badge text-bg-dark">{endpoint}</span>
+        {import.meta.env.DEV ? <span className="badge text-bg-dark">{endpoint}</span> : null}
       </div>
 
       {loading ? <div className="alert alert-info mb-0">Loading data...</div> : null}
