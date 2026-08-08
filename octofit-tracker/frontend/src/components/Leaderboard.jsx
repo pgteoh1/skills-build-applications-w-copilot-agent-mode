@@ -1,16 +1,38 @@
-import ResourceView from './ResourceView.jsx'
+import ResourceView from './ResourceView'
+import { apiBaseUrl } from './resourceApi'
 
-const codespaceName = import.meta.env.VITE_CODESPACE_NAME
-const endpoint = codespaceName
-  ? `https://${codespaceName}-8000.app.github.dev/api/leaderboard/`
-  : '/api/leaderboard/'
+const columns = [
+  {
+    header: 'Rank',
+    render: (item) => item.rank ?? '-',
+  },
+  {
+    header: 'User',
+    render: (item) => item.user?.name ?? '-',
+  },
+  {
+    header: 'Period',
+    render: (item) => item.period ?? '-',
+  },
+  {
+    header: 'Points',
+    render: (item) => item.points ?? '-',
+  },
+]
+
+const leaderboardEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/leaderboard/`
+  : `${apiBaseUrl}/leaderboard/`
 
 function Leaderboard() {
   return (
     <ResourceView
       title="Leaderboard"
-      description="Compare teams and athletes on the latest leaderboard."
-      endpoint={endpoint}
+      endpointUrl={leaderboardEndpoint}
+      resourcePath="leaderboard"
+      resourceKey="leaderboard"
+      columns={columns}
+      emptyMessage="No leaderboard entries found."
     />
   )
 }

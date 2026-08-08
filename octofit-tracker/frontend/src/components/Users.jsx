@@ -1,16 +1,42 @@
-import ResourceView from './ResourceView.jsx'
+import ResourceView from './ResourceView'
+import { apiBaseUrl } from './resourceApi'
 
-const codespaceName = import.meta.env.VITE_CODESPACE_NAME
-const endpoint = codespaceName
-  ? `https://${codespaceName}-8000.app.github.dev/api/users/`
-  : '/api/users/'
+const columns = [
+  {
+    header: 'Name',
+    render: (item) => item.name ?? '-',
+  },
+  {
+    header: 'Email',
+    render: (item) => item.email ?? '-',
+  },
+  {
+    header: 'Fitness Level',
+    render: (item) => item.fitnessLevel ?? '-',
+  },
+  {
+    header: 'Points',
+    render: (item) => item.points ?? '-',
+  },
+  {
+    header: 'Team',
+    render: (item) => item.team?.name ?? '-',
+  },
+]
+
+const usersEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/users/`
+  : `${apiBaseUrl}/users/`
 
 function Users() {
   return (
     <ResourceView
       title="Users"
-      description="Review Octofit athlete profiles and account details."
-      endpoint={endpoint}
+      endpointUrl={usersEndpoint}
+      resourcePath="users"
+      resourceKey="users"
+      columns={columns}
+      emptyMessage="No users found."
     />
   )
 }

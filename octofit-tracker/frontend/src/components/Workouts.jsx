@@ -1,16 +1,45 @@
-import ResourceView from './ResourceView.jsx'
+import ResourceView from './ResourceView'
+import { apiBaseUrl } from './resourceApi'
 
-const codespaceName = import.meta.env.VITE_CODESPACE_NAME
-const endpoint = codespaceName
-  ? `https://${codespaceName}-8000.app.github.dev/api/workouts/`
-  : '/api/workouts/'
+const columns = [
+  {
+    header: 'Title',
+    render: (item) => item.title ?? '-',
+  },
+  {
+    header: 'Difficulty',
+    render: (item) => item.difficulty ?? '-',
+  },
+  {
+    header: 'Focus Area',
+    render: (item) => item.focusArea ?? '-',
+  },
+  {
+    header: 'Duration (min)',
+    render: (item) => item.durationMinutes ?? '-',
+  },
+  {
+    header: 'Recommended For',
+    render: (item) =>
+      Array.isArray(item.recommendedFor) && item.recommendedFor.length > 0
+        ? item.recommendedFor.join(', ')
+        : '-',
+  },
+]
+
+const workoutsEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/workouts/`
+  : `${apiBaseUrl}/workouts/`
 
 function Workouts() {
   return (
     <ResourceView
       title="Workouts"
-      description="Browse recommended workouts and personalized plans."
-      endpoint={endpoint}
+      endpointUrl={workoutsEndpoint}
+      resourcePath="workouts"
+      resourceKey="workouts"
+      columns={columns}
+      emptyMessage="No workouts found."
     />
   )
 }

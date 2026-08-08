@@ -1,16 +1,34 @@
-import ResourceView from './ResourceView.jsx'
+import ResourceView from './ResourceView'
+import { apiBaseUrl } from './resourceApi'
 
-const codespaceName = import.meta.env.VITE_CODESPACE_NAME
-const endpoint = codespaceName
-  ? `https://${codespaceName}-8000.app.github.dev/api/teams/`
-  : '/api/teams/'
+const columns = [
+  {
+    header: 'Name',
+    render: (item) => item.name ?? '-',
+  },
+  {
+    header: 'School',
+    render: (item) => item.school ?? '-',
+  },
+  {
+    header: 'Slogan',
+    render: (item) => item.slogan || '-',
+  },
+]
+
+const teamsEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/teams/`
+  : `${apiBaseUrl}/teams/`
 
 function Teams() {
   return (
     <ResourceView
       title="Teams"
-      description="Manage team rosters and group progress from one place."
-      endpoint={endpoint}
+      endpointUrl={teamsEndpoint}
+      resourcePath="teams"
+      resourceKey="teams"
+      columns={columns}
+      emptyMessage="No teams found."
     />
   )
 }
