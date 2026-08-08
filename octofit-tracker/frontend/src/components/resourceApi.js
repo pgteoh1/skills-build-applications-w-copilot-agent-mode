@@ -78,8 +78,12 @@ export function extractPagination(payload) {
   }
 }
 
-export async function fetchResource(resourcePath, signal) {
-  const response = await fetch(`${apiBaseUrl}/${resourcePath}/`, { signal })
+export async function fetchResource(resourcePathOrUrl, signal) {
+  const requestUrl = resourcePathOrUrl.startsWith('http')
+    ? resourcePathOrUrl
+    : `${apiBaseUrl}/${resourcePathOrUrl}/`
+
+  const response = await fetch(requestUrl, { signal })
 
   if (!response.ok) {
     throw new Error(`Request failed with status ${response.status}`)

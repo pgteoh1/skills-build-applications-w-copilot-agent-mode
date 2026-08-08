@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { apiBaseUrl, extractCollection, extractPagination, fetchResource } from './resourceApi'
 
-function ResourceView({ title, resourcePath, resourceKey, columns, emptyMessage }) {
+function ResourceView({ title, endpointUrl, resourcePath, resourceKey, columns, emptyMessage }) {
   const [items, setItems] = useState([])
   const [pagination, setPagination] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -15,7 +15,7 @@ function ResourceView({ title, resourcePath, resourceKey, columns, emptyMessage 
       setError('')
 
       try {
-        const payload = await fetchResource(resourcePath, controller.signal)
+        const payload = await fetchResource(endpointUrl || resourcePath, controller.signal)
         setItems(extractCollection(payload, resourceKey))
         setPagination(extractPagination(payload))
       } catch (loadError) {
@@ -32,14 +32,16 @@ function ResourceView({ title, resourcePath, resourceKey, columns, emptyMessage 
     loadData()
 
     return () => controller.abort()
-  }, [resourcePath, resourceKey])
+  }, [endpointUrl, resourcePath, resourceKey])
+
+  const sourceUrl = endpointUrl || `${apiBaseUrl}/${resourcePath}/`
 
   return (
     <section className="card shadow-sm border-0">
       <div className="card-body">
         <div className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
           <h1 className="h3 mb-0">{title}</h1>
-          <small className="text-body-secondary">Source: {apiBaseUrl}/{resourcePath}/</small>
+          <small className="text-body-secondary">Source: {sourceUrl}</small>
         </div>
 
         {loading && <p className="mb-0">Loading {title.toLowerCase()}...</p>}

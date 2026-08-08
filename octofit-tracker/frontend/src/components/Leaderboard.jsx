@@ -1,4 +1,5 @@
 import ResourceView from './ResourceView'
+import { apiBaseUrl } from './resourceApi'
 
 const columns = [
   {
@@ -19,10 +20,15 @@ const columns = [
   },
 ]
 
+const leaderboardEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/leaderboard/`
+  : `${apiBaseUrl}/leaderboard/`
+
 function Leaderboard() {
   return (
     <ResourceView
       title="Leaderboard"
+      endpointUrl={leaderboardEndpoint}
       resourcePath="leaderboard"
       resourceKey="leaderboard"
       columns={columns}

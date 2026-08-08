@@ -1,4 +1,5 @@
 import ResourceView from './ResourceView'
+import { apiBaseUrl } from './resourceApi'
 
 function formatDate(value) {
   if (!value) {
@@ -36,10 +37,15 @@ const columns = [
   },
 ]
 
+const activitiesEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/activities/`
+  : `${apiBaseUrl}/activities/`
+
 function Activities() {
   return (
     <ResourceView
       title="Activities"
+      endpointUrl={activitiesEndpoint}
       resourcePath="activities"
       resourceKey="activities"
       columns={columns}

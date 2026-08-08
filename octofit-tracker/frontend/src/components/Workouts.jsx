@@ -1,4 +1,5 @@
 import ResourceView from './ResourceView'
+import { apiBaseUrl } from './resourceApi'
 
 const columns = [
   {
@@ -26,10 +27,15 @@ const columns = [
   },
 ]
 
+const workoutsEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/workouts/`
+  : `${apiBaseUrl}/workouts/`
+
 function Workouts() {
   return (
     <ResourceView
       title="Workouts"
+      endpointUrl={workoutsEndpoint}
       resourcePath="workouts"
       resourceKey="workouts"
       columns={columns}

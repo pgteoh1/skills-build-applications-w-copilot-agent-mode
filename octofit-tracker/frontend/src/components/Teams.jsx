@@ -1,4 +1,5 @@
 import ResourceView from './ResourceView'
+import { apiBaseUrl } from './resourceApi'
 
 const columns = [
   {
@@ -15,10 +16,15 @@ const columns = [
   },
 ]
 
+const teamsEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/teams/`
+  : `${apiBaseUrl}/teams/`
+
 function Teams() {
   return (
     <ResourceView
       title="Teams"
+      endpointUrl={teamsEndpoint}
       resourcePath="teams"
       resourceKey="teams"
       columns={columns}
