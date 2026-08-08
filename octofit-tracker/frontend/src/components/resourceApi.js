@@ -1,8 +1,29 @@
 const codespaceName = (import.meta.env.VITE_CODESPACE_NAME ?? '').trim()
 
+function deriveCodespacesApiBaseFromHost() {
+  if (typeof window === 'undefined') {
+    return ''
+  }
+
+  const { hostname, protocol } = window.location
+  if (!hostname.endsWith('.app.github.dev')) {
+    return ''
+  }
+
+  // Example: <name>-5173.app.github.dev -> <name>-8000.app.github.dev
+  const backendHost = hostname.replace(/-\d+\.app\.github\.dev$/, '-8000.app.github.dev')
+  if (backendHost === hostname) {
+    return ''
+  }
+
+  return `${protocol}//${backendHost}/api`
+}
+
+const derivedCodespacesApiBase = deriveCodespacesApiBaseFromHost()
+
 export const apiBaseUrl = codespaceName
   ? `https://${codespaceName}-8000.app.github.dev/api`
-  : 'http://localhost:8000/api'
+  : derivedCodespacesApiBase || 'http://localhost:8000/api'
 
 export function extractCollection(payload, resourceKey) {
   if (Array.isArray(payload)) {

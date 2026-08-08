@@ -22,7 +22,9 @@ For example:
 https://${VITE_CODESPACE_NAME}-8000.app.github.dev/api/activities/
 ```
 
-If `VITE_CODESPACE_NAME` is not set, the app uses a safe local fallback:
+If `VITE_CODESPACE_NAME` is not set, the app first tries to derive the backend host
+from the current Codespaces hostname (for example `...-5173.app.github.dev` to
+`...-8000.app.github.dev`). If that is not possible, it uses a safe local fallback:
 
 ```text
 http://localhost:8000/api/[component]/
